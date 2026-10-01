@@ -3,7 +3,8 @@ from time import ticks_diff, ticks_ms
 
 lightsensor = ADC(Pin(39))
 
-btn = Pin(34, Pin.IN, Pin.PULL_UP) 
+btn = Pin(34, Pin.IN, Pin.PULL_UP)
+btn2 = Pin(35, Pin.IN, Pin.PULL_UP)
 DEBOUNCE_MS = 200
 last_press = 0
 
@@ -20,13 +21,14 @@ def button_handler(pin):
 
 btn.irq(trigger=Pin.IRQ_FALLING, handler=button_handler)
 data = [] # define an empty array
-x = 0
+x = 0 #setting index
 while True:
     if pressed_flag:
         x = x + 1
         new_data = lightsensor.read_u16()
         data.append(x)
         data.append(new_data)#append appends an element (new_data) to an already defined array
+        
         print (x)
         print(data)
         pressed_flag = False

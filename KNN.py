@@ -14,21 +14,33 @@ STATE_PLAY = False
 #data =[]
 count = 0
 
-data = [[0,1],[100,2], [50,3],[2,1],[95,2], [48,3],[8,1],[89,2], [35,3],[20,1],[80,2], [35,3]]
+#data = [[0,1],[100,2], [50,3],[2,1],[95,2], [48,3],[8,1],[89,2], [35,3],[20,1],[80,2], [35,3]]
 #color_LUT = {1:(0,0,100),2:(0,100,0),3:(100,0,0)}
 
 button_Play = Pin(35, Pin.IN, Pin.PULL_UP)
-
+button_Train = Pin(34, Pin.IN, Pin.PULL_UP)
 debounce_filter = 100
-last_entered_time = 0  
+last_entered_time = 0
+
     
 def playButton(p):
     global STATE_PLAY
+    global STATE_TRAIN
     STATE_PLAY = True
+    STATE_TRAIN = False
     print(data)
+    
+def trainButton(p):
+    global STATE_PLAY
+    global STATE_TRAIN
+    STATE_PLAY = False
+    STATE_TRAIN = True
+    
+    
 
 #button_Train.irq(trigger=Pin.IRQ_RISING, handler=trainButton)
 button_Play.irq(trigger=Pin.IRQ_RISING, handler=playButton)
+button_Train.irq(trigger=Pin.IRQ_RISING, handler=trainButton)
 
 
 
